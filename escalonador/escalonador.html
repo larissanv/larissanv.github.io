@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<meta charset="utf-8" /> 
+<html>
+<head>
+	<title>Escalonador</title>
+</head>
+<body>
+<h2>Escalonador de processos</h2><br>
+<p>Número de processos: <input type="text" name="NumProcessos" id="numprocessos" size="5" value=0>
+<input type="button" name="Processos" value="aleatorizar processos" onclick="gerarProcessos();"><br><br>
+
+Escolha o algoritmo de escalonamento: 
+<select name="tiposDeEscalonamento" id="tiposDeEscalonamento">
+	<option value="FIFO">FIFO</option>
+	<option value="SJF">SJF</option>
+	<option value="prioridade">Prioridade</option>
+	<option value="circular">Circular</option>
+	<option value="loteria">Loteria</option>
+</select>
+<input type="button" name="Escalonar" value="escalonar" onclick="escalonarProcessos();"><br>
+</p>
+
+<script>
+
+var numprocessos;
+var tamanhos = [];
+var prioridades = [];
+
+function verificaNumProcessos(){
+	numprocessos = parseInt(document.getElementById('numprocessos').value);
+	if (numprocessos > 10 || numprocessos < 1){
+		alert('Tamanho inválido! Digite um valor maior que 0 e menor que 10.');
+		return 1;
+	}
+	return 0;
+}
+
+function gerarProcessos(){
+
+	if (!verificaNumProcessos()){
+
+		var processos = document.getElementsByClassName("processo");
+		var prioridade;
+		var tamanho;
+
+		for (var i = 0 ; i < processos.length; i++){
+			if (numprocessos <= i){
+				processos[i].innerHTML = "";
+			}else{
+				processos[i].innerHTML = "<p>Processo " + i + "<br>";
+				prioridade = Math.round(5*Math.random());
+				processos[i].innerHTML += "Prioridade " + prioridade + "<br>";
+				tamanho = Math.round(100*Math.random());
+				processos[i].innerHTML += "Tamanho " + tamanho + "<br>";
+				tamanhos[i] = tamanho;
+				prioridades[i] = prioridade;
+			}
+		}
+	}
+}
+
+function escalonarProcessos(){
+
+	var aux = document.getElementById('tiposDeEscalonamento').selectedIndex;
+	var tipoDeEscalonamento = document.getElementById('tiposDeEscalonamento').options[aux].value;
+
+	if (tipoDeEscalonamento == 'FIFO'){
+		document.getElementById('fifo').innerHTML = '' ;
+		fifo();
+	}
+	else if (tipoDeEscalonamento == 'SJF'){
+		document.getElementById('sjf').innerHTML = '' ;
+		sjf();
+	}
+	else if(tipoDeEscalonamento=='prioridade'){
+		document.getElementById('prioridade').innerHTML = '';
+		prioridade();
+	}
+	else if(tipoDeEscalonamento=='circular'){
+		document.getElementById('circular').innerHTML = '';
+		circular();
+	}
+	else if(tipoDeEscalonamento=='loteria'){
+		document.getElementById('loteria').innerHTML= '';
+		loteria();
+	}
+}
+
+function internaDaFifo(i){
+	document.getElementById('fifo').innerHTML += 'Processo ' + (i) + ' | ';
+}
+
+function fifo(){
+	for (i = 0 ; i < numprocessos ; i++){
+		setTimeout('internaDaFifo('+i+')', 1000*i);
+	}
+}
+
+function internaDaSjf(i){
+	document.getElementById('sjf').innerHTML += 'Processo ' + (i) + ' | ';
+}
+
+function sjf(){
+	var menor = 101;
+	var j = 0;
+	var aux = [];
+	
+	for (i = 0 ; i < numprocessos ; i++){
+		aux[i] = tamanhos[i];
+	}
+
+	for (var a = 0 ; a < numprocessos ; a++){
+		for (i = 0 ; i < numprocessos ; i++){
+
+			if(menor >= aux[i]){
+				menor = aux[i];
+				j = i;
+			}
+		}
+		aux[j] = 100;
+		menor = 100;
+		setTimeout('internaDaSjf('+j+')', 10);
+	}
+}
+
+function internaDaPrioridade(i){
+	document.getElementById('prioridade').innerHTML += 'Processo ' + (i) + ' | ';
+}
+
+function prioridade(){
+	var menor = 10;
+	var j = 0;
+	var aux = [];
+	for (i = 0 ; i < numprocessos ; i++){
+		aux[i] = prioridades[i];
+	}
+	for (var a = 0 ; a < numprocessos ; a++){
+		for (i = 0 ; i < numprocessos ; i++){
+
+			if(menor >= aux[i]){
+				menor = aux[i];
+				j = i;
+			}
+		}
+		aux[j] = 10;
+		menor = 10;
+		setTimeout('internaDaPrioridade('+j+')', 10);
+	}
+}
+
+
+function internaDaCircular(i,tam){
+	document.getElementById('circular').innerHTML += 'Processo ' + (i) + ' - ' + (tam) + ' | ';
+}
+
+function circular(){
+	var menor = 101;
+	var j = 0;
+	var cont = 0;
+	var aux = [];
+	
+	for (i = 0 ; i < numprocessos ; i++){
+		aux[i] = tamanhos[i];
+	}
+
+	while(1){
+		for (i = 0 ; i < numprocessos ; i++){
+
+			if(aux[i] > 10)
+				aux[i] -= 10;
+			else if(aux[i] > 0)
+				aux[i] = aux[i] - aux[i];
+
+			setTimeout('internaDaCircular('+i+','+aux[i]+')', 10);
+
+		}
+		for (i = 0 ; i < numprocessos ; i++){
+			if (aux[i] == 0)
+				cont += 1;
+			if (cont == numprocessos - 1)
+				return;
+		}
+		cont = 0;
+	}
+}
+
+
+function internaDaLoteria(i){
+	document.getElementById('loteria').innerHTML += 'Processo ' + (i) + ' | ';
+
+}
+
+function loteria(){
+	var j = 0;
+	var k = 0;
+	var aux = [];
+	var flag = 0;
+	var num = numprocessos - 1;
+
+	for (i = 0 ; i < numprocessos ; i++){
+		j = Math.round(num*Math.random());
+		for (k = 0 ; k < numprocessos ; k++){
+			if (aux[k] == j)
+				flag = 1;
+		}
+		if (flag == 0)
+			aux[i] = j;
+		else{
+			flag = 0;
+			i--;
+		}
+	}
+
+	for (i = 0 ; i < numprocessos ; i++){
+		setTimeout('internaDaLoteria('+aux[i]+')', 10);
+	}
+}
+
+
+</script>
+
+<style>
+td {
+border: 0.5px solid black;
+color: #000;
+}
+</style>
+
+<table>
+	<tr>
+		<td class="processo">	
+		</td>
+		<td class="processo">
+		</td>
+		<td class="processo">
+		</td>
+		<td class="processo">
+		</td>
+		<td class="processo">
+		</td>
+		<td class="processo">
+		</td>
+		<td class="processo">
+		</td>
+		<td class="processo">
+		</td>
+		<td class="processo">
+		</td>
+		<td class="processo">
+		</td>
+	</tr>
+</table>
+<br>
+<table>
+	<tr>
+		<td>
+		<p>FIFO</p>		
+		</td>
+		<td id="fifo">
+		</td>
+	</tr>
+	<tr>
+		<td>
+		<p>SJF</p>	
+		</td>
+		<td id="sjf">
+		</td>
+	</tr>
+	<tr>
+		<td>
+		<p>Prioridade</p>	
+		</td>
+		<td id="prioridade">
+		</td>
+	</tr>
+	<tr>
+		<td>
+		<p>Circular </p>	
+		</td>
+		<td id="circular">
+		</td>
+	</tr>
+	<tr>
+		<td>
+		<p>Loteria </p>	
+		</td>
+		<td id="loteria">
+		</td>
+	</tr>
+</table>
+</body>
+</html>
