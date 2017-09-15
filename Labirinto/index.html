@@ -1,0 +1,171 @@
+<!DOCTYPE HTML>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Labirinto</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="css/custom.css" rel="stylesheet">
+
+    <!-- Custom Fonts Google -->
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav id="siteNav" class="navbar navbar-default navbar-fixed-top" role="navigation">
+        <div class="container">
+            <!-- Logo and responsive toggle -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">
+                    INTELIGENCIA ARTIFICIAL - TP2
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <header>
+        <div class="header-content">
+            <div class="header-content-inner">
+                <img src="imagens/Portal.png">
+                <h2><b>Labirinto</b></h2>
+                <!--<a href="#menu" class="btn btn-primary btn-lg">v</a> -->
+            </div>
+        </div>
+    </header>
+
+    <!-- Section -->
+
+
+    <div class = "bonitin">
+        <div class="container">
+            <div class="row">
+                <div id="menu">
+                	<center>
+                	<br>
+					<input type="button" class="btn btn-primary btn-lg" name="JogarA" value="Usando IA!" onclick="jogarA();">
+					<input type="button" class="btn btn-primary btn-lg" name="JogarTeclado" value="Agora é a sua vez!" onclick="jogarTeclado();">
+					<input type="image" class="btn btn-primary btn-lg" name="refresh" onclick="refresh();" src="imagens/refresh.png">
+					<span id="tempo"><h2></h2></span>
+					</center>
+					<center>
+					<p></p>
+	                <canvas class="canvas" id="imageView">			
+	                </center>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    </section>
+	    <center>
+	    <div class="contact">
+	            <div class="container">
+	            <br><br><br><br><br>
+			        <h2 class="section-heading";>Contato</h2>
+	                <p><span class="glyphicon glyphicon-envelope"></span><br> joaopmoferreira@gmail.com</p>
+	                <p><span class="glyphicon glyphicon-envelope"></span><br> larissanevesviana@gmail.com</p>
+	                <p><span class="glyphicon glyphicon-envelope"></span><br> lucas_rock@live.com</p>
+	            </div>
+	    </div>
+	    </center>
+
+	    <!-- Copyright etc -->
+
+	    <footer class="page-footer">
+	        <div class="small-print">
+	            <div class="container">
+	                <p>Copyright &copy; João Pedro M. F. & Larissa N. V. & Lucas Augusto C. - 2016</p>
+	            </div>
+	        </div>
+	    </footer>
+    <script type='text/javascript' src='scripts/controladorGeral.js'></script>
+		<script  type='text/javascript' src='scripts/controladorDoLabirinto.js'></script>
+		<script  type='text/javascript' src='scripts/controladorDoJogador.js'></script>
+		<script  type='text/javascript' src='scripts/A.js'></script>
+        <script  type='text/javascript' src='scripts/jogarTeclado.js'></script>
+		<script>
+		
+		var comeco = new controladorGeral();
+		comeco.iniciar();
+		var cont = 0;
+
+		function contador(flag) {
+			
+			if (flag == 0){
+				cont = cont+1;
+				setTimeout("contador(0)", 1000);
+				document.getElementById('tempo').innerHTML = "<br> ";
+				document.getElementById('tempo').innerHTML += cont;
+					if (cont == 1)
+						document.getElementById('tempo').innerHTML += " segundo";
+					else
+						document.getElementById('tempo').innerHTML += " segundos";
+			} else{
+				cont = 0;
+				//document.getElementById('link').style.display="block";
+			}
+		}
+		
+		function jogarA(){
+			
+			if (cont == 0){
+				contador(0);
+           		comeco.jogarA(comeco.jogador, comeco.labirinto);
+			}else{
+				//location.reload();
+				//comeco.iniciar();
+				//comeco.jogarA(comeco.jogador, comeco.labirinto);
+			}
+
+		}
+		function jogarTeclado(){
+
+			if (cont == 0){
+				contador(0);
+           		comeco.jogarTeclado(comeco.jogador);
+			}else{
+				//location.reload();
+				//comeco.iniciar();
+				//comeco.jogarTeclado(comeco.jogador);
+			}
+
+		}
+		function refresh(){
+			location.reload();
+		}
+
+		</script>
+
+    <!-- jQuery -->
+    <script src="js/jquery-1.11.3.min.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+
+    <!-- Plugin JavaScript -->
+    <script src="js/jquery.easing.min.js"></script>
+
+    <!-- Custom Javascript -->
+    <script src="js/custom.js"></script>
+
+</body>
+
+</html>

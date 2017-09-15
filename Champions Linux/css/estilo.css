@@ -1,0 +1,252 @@
+
+	/* Style for our header texts
+	* --------------------------------------- */
+	h3{
+		font-size: 2em;
+		font-family: arial,helvetica;
+		color: #fff;
+		text-align:center;
+	}
+	h1{
+		font-size: 5em;
+		font-family: arial,helvetica;
+		color: #000;
+		text-align:center;
+	}
+
+
+	/* Overwriting styles for control arrows for slides
+	* --------------------------------------- */
+	.controlArrow.prev {
+		left: 50px;
+	}
+	.controlArrow.next{
+		right: 50px;
+	}
+
+
+	/* Bottom menu
+	* --------------------------------------- */
+	#infoMenu li a {
+		color: #fff;
+	}
+
+	#header, #footer{
+		position:fixed;
+		height: 30px;
+		display:block;
+		width: 100%;
+		background: #333;
+		z-index:9;
+		text-align:center;
+		color: #f2f2f2;
+		padding: 10px 0 0 0;
+	}
+
+	#header{
+		top:0px;
+	}
+	#footer{
+		bottom:0px;
+	}
+	table {
+		    border-collapse: collapse;
+		    width: 500px;
+		    margin: auto;
+		    font-weight: bold;
+	}
+
+	th, td {
+		padding: 5px;
+		text-align: left;
+		border-bottom: 1px solid #ddd;
+	}
+		td{
+			background-color: #e6e6e6;
+    			
+		}
+		th{
+			background-color: #4CAF50;
+    		color: white;
+		}
+		table tr:hover td {
+			background-color: #FEFEFE;
+		}
+
+		#sobre {
+		    padding-left: 100px;
+		    padding-right: 50px;
+		    font-size: 18px;
+
+		}
+		
+		 
+		#login-dp{
+		    min-width: 250px;
+		    padding: 14px 14px 0;
+		    overflow:hidden;
+		    background-color:rgba(255,255,255,.8);
+		}
+		#login-dp .help-block{
+		    font-size:12px    
+		}
+		#login-dp .bottom{
+		    background-color:rgba(255,255,255,.8);
+		    border-top:1px solid #ddd;
+		    clear:both;
+		    padding:14px;
+		}
+		#login-dp .social-buttons{
+		    margin:12px 0    
+		}
+		#login-dp .social-buttons a{
+		    width: 49%;
+		}
+		#login-dp .form-group {
+		    margin-bottom: 10px;
+		}
+		.btn-fb{
+		    color: #fff;
+		    background-color:#3b5998;
+		}
+		.btn-fb:hover{
+		    color: #fff;
+		    background-color:#496ebc 
+		}
+		.btn-tw{
+		    color: #fff;
+		    background-color:#55acee;
+		}
+		.btn-tw:hover{
+		    color: #fff;
+		    background-color:#59b5fa;
+		}
+		@media(max-width:768px){
+		    #login-dp{
+		        background-color: inherit;
+		        color: #fff;
+		    }
+		    #login-dp .bottom{
+		        background-color: inherit;
+		        border-top:0 none;
+		    }
+		}
+		/*
+ * Base structure
+ */
+
+/* Move down content because we have a fixed navbar that is 50px tall */
+body {
+  padding-top: 50px;
+}
+
+
+/*
+ * Global add-ons
+ */
+
+.sub-header {
+  padding-bottom: 10px;
+  border-bottom: 1px solid #eee;
+}
+
+/*
+ * Top navigation
+ * Hide default border to remove 1px line.
+ */
+.navbar-fixed-top {
+  border: 0;
+}
+
+/*
+ * Sidebar
+ */
+
+/* Hide for mobile, show later */
+.sidebar {
+  display: none;
+}
+@media (min-width: 768px) {
+  .sidebar {
+    position: fixed;
+    top: 51px;
+    bottom: 0;
+    left: 0;
+    z-index: 1000;
+    display: block;
+    padding: 20px;
+    overflow-x: hidden;
+    overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+    background-color: #f5f5f5;
+    border-right: 1px solid #eee;
+  }
+}
+
+/* Sidebar navigation */
+.nav-sidebar {
+  margin-right: -21px; /* 20px padding + 1px border */
+  margin-bottom: 20px;
+  margin-left: -20px;
+}
+.nav-sidebar > li > a {
+  padding-right: 20px;
+  padding-left: 20px;
+}
+.nav-sidebar > .active > a,
+.nav-sidebar > .active > a:hover,
+.nav-sidebar > .active > a:focus {
+  color: #fff;
+  background-color: #428bca;
+}
+
+
+/*
+ * Main content
+ */
+
+.main {
+  padding: 20px;
+}
+@media (min-width: 768px) {
+  .main {
+    padding-right: 40px;
+    padding-left: 40px;
+  }
+}
+.main .page-header {
+  margin-top: 0;
+}
+
+
+/*
+ * Placeholder dashboard ideas
+ */
+
+.placeholders {
+  margin-bottom: 30px;
+  text-align: center;
+}
+.placeholders h4 {
+  margin-bottom: 0;
+}
+.placeholder {
+  margin-bottom: 20px;
+}
+.placeholder img {
+  display: inline-block;
+  border-radius: 50%;
+}
+#section2{
+  	background-image:url('imagens/grass.jpg');
+  	 background-size:100%;
+  }
+
+  h4{
+  	font-weight: bold;
+  }
+  p{
+  	font-style: Helvetica;
+  }
+  .vencedores{
+  	color: blue;
+  }
